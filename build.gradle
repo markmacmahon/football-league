@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'league.App'
+
+repositories {
+  mavenCentral()
+}
+
+jar {
+  baseName = 'football-league'
+  version =  '0.1.0'
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+  testCompile "junit:junit:4.12"
+}
