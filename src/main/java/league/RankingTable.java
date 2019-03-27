@@ -28,9 +28,10 @@ public class RankingTable {
                 .flatMap(List::stream)
                 .collect(Collectors
                         .groupingBy(TeamPoints::getTeam,
-                                Collectors.summingInt(TeamPoints::getPoints)))
+                                Collectors.reducing((o1, o2) -> TeamPoints.add(o1,o2))))
                 .entrySet().stream()
-                .map(stringIntegerEntry -> new TeamPoints(stringIntegerEntry.getKey(), stringIntegerEntry.getValue()))
+                .filter(entry -> entry.getValue().isPresent())
+                .map(entry -> entry.getValue().get())
                 .sorted(TeamPoints::compareTo)
                 .collect(Collectors.toList());
     }

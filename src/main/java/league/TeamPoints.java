@@ -23,6 +23,10 @@ class TeamPoints implements Comparable<TeamPoints> {
         return points;
     }
 
+    public static TeamPoints add(TeamPoints t1, TeamPoints t2){
+        return new TeamPoints(t1.getTeam(),t1.getPoints()+t2.getPoints());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
