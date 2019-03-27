@@ -24,8 +24,8 @@ public class TeamPointsTest {
     @Test
     public void shouldRankAlphabeticalIfEqualPoints() {
         // given:
-        final TeamPoints homePoints = new TeamPoints("home", 3);
-        final TeamPoints awayPoints = new TeamPoints("away", 3); //A wins so result = negative
+        final TeamPoints homePoints = new TeamPoints("home", 3,1,1);
+        final TeamPoints awayPoints = new TeamPoints("away", 3,1,1); //A wins so result = negative
 
         // when:
         final int result = homePoints.compareTo(awayPoints);

@@ -3,10 +3,7 @@ package league;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,13 +25,14 @@ public class RankingTable {
                 .flatMap(List::stream)
                 .collect(Collectors
                         .groupingBy(TeamPoints::getTeam,
-                                Collectors.reducing((o1, o2) -> TeamPoints.add(o1,o2))))
+                                Collectors.reducing((o, o2) -> TeamPoints.add(o,o2))))
                 .entrySet().stream()
                 .filter(entry -> entry.getValue().isPresent())
                 .map(entry -> entry.getValue().get())
                 .sorted(TeamPoints::compareTo)
                 .collect(Collectors.toList());
     }
+
 
     static List<TeamPlacement> calculatePlacements(Collection<TeamPoints> teamPoints) {
         final List<TeamPlacement> placements = new ArrayList<>();
@@ -44,7 +42,7 @@ public class RankingTable {
         for (TeamPoints current : teamPoints) {
             // Teams on the same number of points share the same placed position.
             // Different points to previous so revert to index position.
-            if ((previous != null) && (current.getPoints() != previous.getPoints())) {
+            if ((previous != null) && (pointsAndGoalsComparator.compare(current,previous) != 0)) {
                 rankedPosition = index;
             }
             //otherwise no change in placed position
@@ -84,4 +82,13 @@ public class RankingTable {
         }
 
     }
+
+    static Comparator<TeamPoints> pointsAndGoalsComparator = (first, other) -> {
+        final int byPoints = Integer.compare(first.getPoints(), other.getPoints()) * -1; //reverse natural order
+        if (byPoints == 0) {
+            return Integer.compare(first.getGoalDifference(), other.getGoalDifference()) * -1;
+
+        }
+        return byPoints;
+    };
 }

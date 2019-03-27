@@ -70,12 +70,18 @@ class TeamPoints implements Comparable<TeamPoints> {
 
     @Override
     public int compareTo(TeamPoints other) {
-        final int byPoints = Integer.compare(getPoints(), other.getPoints()) * -1; //reverse natural order
+        int byPoints = Integer.compare(getPoints(), other.getPoints()) * -1; //reverse natural order
+        if (byPoints == 0) {
+            byPoints = Integer.compare(getGoalDifference(), other.getGoalDifference()) * -1;
+        }
         if (byPoints == 0) {
             //fallback to alphabetical order
             return getTeam().compareToIgnoreCase(other.getTeam());
         }
         return byPoints;
     }
+
+
+
 
 }

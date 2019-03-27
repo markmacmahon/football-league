@@ -40,7 +40,7 @@ public class Result {
             home = 0;
             away = 3;
         }
-        return Arrays.asList(new TeamPoints(this.homeTeam, home), new TeamPoints(this.awayTeam, away));
+        return Arrays.asList(new TeamPoints(this.homeTeam, home,homeGoals,awayGoals), new TeamPoints(this.awayTeam, away,awayGoals,homeGoals));
     }
 
     public String getHomeTeam() {
