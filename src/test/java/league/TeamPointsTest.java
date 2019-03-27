@@ -2,6 +2,7 @@ package league;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -29,7 +30,26 @@ public class TeamPointsTest {
         // when:
         final int result = homePoints.compareTo(awayPoints);
 
-        // them:
+        // then:
         assertTrue(result > 0);
+    }
+
+    @Test
+    public void shouldAddPoints(){
+        // given:
+        final TeamPoints points1 = new TeamPoints("points1", 3,4,2);
+        final TeamPoints points2 = new TeamPoints("points2", 2,5,1);
+
+        // when:
+        final TeamPoints result = TeamPoints.add(points1,points2);
+
+        // then:
+        assertEquals(5,result.getPoints());
+        assertEquals(5,result.getPoints());
+        assertEquals(9,result.getGoalsFor());
+        assertEquals(3,result.getGoalsAgainst());
+        assertEquals(6,result.getGoalDifference());
+
+
     }
 }
